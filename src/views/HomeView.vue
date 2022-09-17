@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <dashboard-vue />
+    <canvas-vue />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import DashboardVue from "@/components/dashboard.vue";
+import CanvasVue from "@/components/Canvas.vue";
 
 @Options({
   components: {
-    HelloWorld,
+    DashboardVue,
+    CanvasVue,
   },
 })
 export default class HomeView extends Vue {}
 </script>
+
+<style lang="scss">
+.home {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+</style>
