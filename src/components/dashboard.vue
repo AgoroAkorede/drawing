@@ -1,8 +1,8 @@
 <template>
   <div class="body">
-    <h1>Hello</h1>
+    <back-icon />
     <colors-vue />
-    <!-- <delete-icon /> -->
+    <delete-icon />
     <div class="sliders">
       <label>opacity: {{ opacity }} </label>
       <input class="slider" type="range" min="0" max="100" v-model="opacity" />
@@ -31,12 +31,15 @@
 <script lang="ts">
 // import deleteIcon from "./delete.svg";
 import ColorsVue from "./Colors.vue";
-// import Colors from "./Colors.vue";
+import BackIcon from "./icons/back.vue";
+import DeleteIcon from "./icons/delete.vue";
 
 export default {
   name: "DashboardVue",
   components: {
     ColorsVue,
+    BackIcon,
+    DeleteIcon,
   },
   data() {
     return {
