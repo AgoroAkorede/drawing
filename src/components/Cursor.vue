@@ -1,15 +1,17 @@
 <template>
-  <div :style="cursorCircle" class="custom_cursor"></div>
+  <div :style="cursorCircle" class="custom_cursor">
+    <div :style="setColor" class="cursor_child"></div>
+  </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "CursorVue",
   data() {
     return {
       x: 0,
       y: 0,
-      color: "#fff",
     };
   },
   computed: {
@@ -18,6 +20,10 @@ export default {
       translateX(${this.x}px)
        translateY(${this.y}px)`;
     },
+    setColor() {
+      return `background-color: ${this.color}`;
+    },
+    ...mapState(["color"]),
   },
   methods: {
     moveCursor(e) {
@@ -44,12 +50,17 @@ export default {
   top: 0;
   left: 0;
   position: fixed;
-  width: 30px;
-  height: 30px;
-  background-color: #fff;
+  width: 1rem;
+  height: 1rem;
   border-radius: 100%;
   z-index: 55;
   backface-visibility: hidden;
   transition: opacity 0.6s ease;
+  border: solid 1px #534057;
+  overflow: hidden;
+  .cursor_child {
+    height: 100%;
+    width: 100%;
+  }
 }
 </style>

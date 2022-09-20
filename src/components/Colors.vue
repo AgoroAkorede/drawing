@@ -1,23 +1,40 @@
 <template>
   <div class="container">
-    <div class="red"></div>
-    <div class="blue"></div>
-    <div class="white"></div>
-    <div class="yellow"></div>
-    <div class="purple"></div>
-    <div class="grey"></div>
-    <div class="green"></div>
-    <div class="pink"></div>
-    <div class="black"></div>
-    <div class="aqua"></div>
-    <div class="mangenta"></div>
-    <div class="default"></div>
+    <div class="red" @click.prevent="setColorRed"></div>
+    <div class="blue" @click.prevent="setColorBlue"></div>
+    <div class="white" @click.prevent="setColorWhite"></div>
+    <div class="yellow" @click.prevent="setColorYellow"></div>
+    <div class="purple" @click.prevent="setColorPurple"></div>
+    <div class="grey" @click.prevent="setColorGrey"></div>
+    <div class="green" @click.prevent="setColorGreen"></div>
+    <div class="pink" @click.prevent="setColorPink"></div>
+    <div class="black" @click.prevent="setColorBlack"></div>
+    <div class="aqua" @click.prevent="setColorAqua"></div>
+    <div class="mangenta" @click.prevent="setColorMangenta"></div>
+    <div class="default" @click.prevent="setColorDefault"></div>
   </div>
 </template>
 
 <script lang="ts">
+import { mapActions } from "vuex";
 export default {
   name: "ColorsVue",
+  methods: {
+    ...mapActions([
+      "setColorRed",
+      "setColorBlue",
+      "setColorWhite",
+      "setColorYellow",
+      "setColorPurple",
+      "setColorGrey",
+      "setColorGreen",
+      "setColorPink",
+      "setColorAqua",
+      "setColorBlack",
+      "setColorMangenta",
+      "setColorDefault",
+    ]),
+  },
 };
 </script>
 

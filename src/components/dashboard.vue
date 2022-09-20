@@ -2,18 +2,17 @@
   <div class="body">
     <back-icon />
     <colors-vue />
-    <delete-icon />
     <div class="sliders">
       <label>opacity: {{ opacity }} </label>
       <input class="slider" type="range" min="0" max="100" v-model="opacity" />
 
-      <label>radius: {{ radius }} </label>
+      <label @click="setRadius">radius: {{ this.radius }} </label>
       <input
         class="slider"
         type="range"
-        min="-180"
-        max="180"
-        v-model="radius"
+        min="1"
+        max="20"
+        v-model="this.radius"
       />
 
       <label>lazy Radius: {{ lazy_radius }} </label>
@@ -29,24 +28,28 @@
 </template>
 
 <script lang="ts">
-// import deleteIcon from "./delete.svg";
+import { mapActions, mapState, mapMutations } from "vuex";
 import ColorsVue from "./Colors.vue";
 import BackIcon from "./icons/back.vue";
-import DeleteIcon from "./icons/delete.vue";
 
 export default {
   name: "DashboardVue",
   components: {
     ColorsVue,
     BackIcon,
-    DeleteIcon,
   },
   data() {
     return {
       opacity: 100,
-      radius: 0,
       lazy_radius: 0,
+      radius: 10,
     };
+  },
+  methods: {
+    ...mapActions(["setRadius"]),
+  },
+  computed: {
+    ...mapState(["radius"]),
   },
 };
 </script>
