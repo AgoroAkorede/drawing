@@ -1,6 +1,8 @@
 <template>
-  <div :style="cursorCircle" class="custom_cursor">
-    <div :style="setColor" class="cursor_child"></div>
+  <div>
+    <div :style="myStyles" class="custom_cursor">
+      <div class="cursor_child"></div>
+    </div>
   </div>
 </template>
 
@@ -15,15 +17,17 @@ export default {
     };
   },
   computed: {
-    cursorCircle() {
-      return `transform:
-      translateX(${this.x}px)
-       translateY(${this.y}px)`;
+    myStyles() {
+      return {
+        height: `${this.radius / 5}rem`,
+        width: `${this.radius / 5}rem`,
+        transform: `translateX(${this.x}px)
+       translateY(${this.y}px)`,
+        background: `${this.color}`,
+        opacity: `${this.opacity / 100}`,
+      };
     },
-    setColor() {
-      return `background-color: ${this.color}`;
-    },
-    ...mapState(["color"]),
+    ...mapState(["color", "radius", "opacity"]),
   },
   methods: {
     moveCursor(e) {

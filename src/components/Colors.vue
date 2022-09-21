@@ -10,7 +10,7 @@
     <div class="pink" @click.prevent="setColorPink"></div>
     <div class="black" @click.prevent="setColorBlack"></div>
     <div class="aqua" @click.prevent="setColorAqua"></div>
-    <div class="mangenta" @click.prevent="setColorMangenta"></div>
+    <div class="mangenta" @click.prevent="setColorMangeta"></div>
     <div class="default" @click.prevent="setColorDefault"></div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
       "setColorPink",
       "setColorAqua",
       "setColorBlack",
-      "setColorMangenta",
+      "setColorMangeta",
       "setColorDefault",
     ]),
   },
@@ -45,66 +45,59 @@ export default {
   grid-template-columns: repeat(4, 1rem);
   margin: 1rem;
   cursor: pointer;
-  .red {
-    background-color: red;
+  @mixin icon {
     height: 1rem;
     width: 1rem;
+    border-radius: 50%;
+  }
+  .red {
+    background-color: #f06d31;
+    @include icon();
   }
   .blue {
-    background-color: blue;
-    height: 1rem;
-    width: 1rem;
+    background-color: #6c80da;
+    @include icon();
   }
   .white {
     background-color: white;
-    height: 1rem;
-    width: 1rem;
+    @include icon();
   }
   .yellow {
     background-color: yellow;
-    height: 1rem;
-    width: 1rem;
+    @include icon();
   }
   .purple {
     background-color: purple;
-    height: 1rem;
-    width: 1rem;
+    @include icon();
   }
   .grey {
     background-color: grey;
-    height: 1rem;
-    width: 1rem;
+    @include icon();
   }
   .green {
-    background-color: green;
-    height: 1rem;
-    width: 1rem;
+    background-color: #97d779;
+    @include icon();
   }
   .pink {
     background-color: pink;
-    height: 1rem;
-    width: 1rem;
+    @include icon();
   }
   .black {
-    background-color: black;
-    height: 1rem;
-    width: 1rem;
+    background-color: #0e0707;
+    @include icon();
   }
   .mangenta {
-    background-color: magenta;
-    height: 1rem;
-    width: 1rem;
+    background-color: #ff00ff;
+    @include icon();
   }
   .default {
     background-color: #2a192d;
-    height: 1rem;
-    width: 1rem;
+    @include icon();
     border: solid 1px #534057;
   }
   .aqua {
-    background-color: aqua;
-    height: 1rem;
-    width: 1rem;
+    background-color: #70dddd;
+    @include icon();
   }
 }
 </style>
