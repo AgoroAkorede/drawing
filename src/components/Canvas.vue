@@ -1,7 +1,26 @@
 <template>
   <div class="container_canvas">
-    <delete-icon @click="deleteCanvas(this)" />
-    <button @click="undoLast(this)">UNDO</button>
+    <div class="hot_bar">
+      <delete-icon @click="deleteCanvas(this)" />
+      <back-icon @click="undoLast(this)"></back-icon>
+      <save-icon @click.prevent="toggleSaveModal" />
+      <transition name="pop" mode="out-in">
+        <div
+          class="save_parent"
+          :style="saveModal ? { display: 'flex' } : { display: 'none' }"
+        >
+          <input
+            class="input"
+            type="text"
+            placeholder="Name"
+            v-model="this.name"
+            @input="setSaveName(this.name)"
+          />
+          <button class="save" @click.prevent="saveItem(this)">save</button>
+          <button @click="toggleSaveModal" class="close_button"></button>
+        </div>
+      </transition>
+    </div>
     <div class="canvas">
       <canvas
         @mousedown="startPainting"
@@ -22,8 +41,11 @@
 
 <script>
 import CursorVue from "./Cursor.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import DeleteIcon from "./icons/delete.vue";
+import BackIcon from "./icons/back.vue";
+import SaveIcon from "./icons/save.vue";
+
 export default {
   name: "CanvasVue",
   data() {
@@ -33,10 +55,26 @@ export default {
       canvasVue: null,
       width: "1300",
       height: "525",
+      name: "Default",
     };
   },
   computed: {
-    ...mapState(["color", "radius", "opacity", "history"]),
+    myStyles() {
+      return {
+        display: "flex",
+      };
+    },
+    ...mapState([
+      "color",
+      "radius",
+      "opacity",
+      "history",
+      "isDrawing",
+      "hardness",
+      "index",
+      "saveModal",
+      "save",
+    ]),
   },
   methods: {
     startPainting() {
@@ -47,34 +85,37 @@ export default {
       this.ctx.lineWidth = this.radius;
       this.ctx.lineCap = "round";
       this.ctx.lineJoin = "round";
-
       this.ctx.lineTo(e.offsetX, e.offsetY);
       this.ctx.stroke();
-
       this.ctx.beginPath();
       this.ctx.strokeStyle = this.color;
       this.ctx.moveTo(e.offsetX, e.offsetY);
       this.ctx.globalAlpha = this.opacity / 100;
+      this.ctx.filter = `blur(${this.hardness}px)`;
       this.ctx.closePath();
-      console.log(this.history);
+      this.ctx.shadowBlur = 10;
+      // this.isDrawing = true;
     },
     finishedPainting() {
       this.painting = false;
+      this.toggleisDrawing();
       this.ctx.beginPath();
       this.setHistory(this);
     },
-    // historyNos(e) {
-    //   let hist = [];
-    //   if (this.painting) {
-    //     hist.push(e.offsetX);
-    //   }
-    // },
-    ...mapState(["history"]),
-    ...mapActions(["deleteCanvas", "undoLast", "setHistory"]),
+    ...mapMutations(["toggleisDrawing", "toggleSaveModal"]),
+    ...mapActions([
+      "deleteCanvas",
+      "undoLast",
+      "setHistory",
+      "saveItem",
+      "setSaveName",
+    ]),
   },
   components: {
     CursorVue,
     DeleteIcon,
+    BackIcon,
+    SaveIcon,
   },
   mounted() {
     const canvasX = this.$refs.canvas;
@@ -90,15 +131,80 @@ export default {
 
   .canvas {
     border: solid #534057 1px;
-
     .cursor {
       display: none;
     }
-
     &:hover {
       .cursor {
         display: flex;
       }
+    }
+  }
+  .hot_bar {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    cursor: default;
+  }
+  .save_parent {
+    position: absolute;
+    height: 7.5rem;
+    width: 12.5rem;
+    z-index: 100;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    .input {
+      border: solid #6c80da 2px;
+      height: 2rem;
+      border-radius: 0.25rem;
+      &:focus {
+        outline: solid #97d779 2px;
+        border: none;
+      }
+    }
+    .save {
+      background-color: #6c80da;
+      border: none;
+      height: 2rem;
+      width: 4rem;
+      border-radius: 0.25rem;
+      align-self: flex-end;
+      margin: 0.5rem;
+      cursor: pointer;
+      color: #fff;
+    }
+  }
+  .pop-enter-active {
+    animation: pop-up 10s linear forwards;
+    transition: all 5s linear;
+  }
+  .pop-leave-active {
+    animation: pop-down 10s linear forwards;
+    transition: all 5s linear;
+  }
+  // .pop-enter-from,
+  // .pop-enter-from {
+  //   transition: all 5s linear;
+  //   transform: scale(0);
+  // }
+
+  @keyframes pop-up {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  @keyframes pop-down {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(0);
     }
   }
 }

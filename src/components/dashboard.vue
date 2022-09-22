@@ -1,6 +1,5 @@
 <template>
   <div class="body">
-    <back-icon />
     <colors-vue />
     <div class="sliders">
       <div class="slider_parent">
@@ -38,13 +37,14 @@
       </div>
 
       <div class="slider_parent">
-        <label>hardness: {{ hardness }} </label>
+        <label>softness: {{ this.hardness }} </label>
         <input
           class="slider"
           type="range"
           min="0"
-          max="100"
-          v-model="hardness"
+          max="50"
+          v-model="this.hardness"
+          @input="setHardness(this.hardness)"
         />
       </div>
     </div>
@@ -54,27 +54,25 @@
 <script lang="ts">
 import { mapActions, mapState, mapMutations } from "vuex";
 import ColorsVue from "./Colors.vue";
-import BackIcon from "./icons/back.vue";
 
 export default {
   name: "DashboardVue",
   components: {
     ColorsVue,
-    BackIcon,
   },
   data() {
     return {
       opacity: 100,
       lazy_radius: 0,
       radius: 10,
-      hardness: 100,
+      hardness: 0,
     };
   },
   methods: {
-    ...mapActions(["setRadius", "setOpacity"]),
+    ...mapActions(["setRadius", "setOpacity", "setHardness"]),
   },
   computed: {
-    ...mapState(["radius", "opacity"]),
+    ...mapState(["radius", "opacity", "hardness"]),
   },
 };
 </script>

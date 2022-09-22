@@ -25,9 +25,10 @@ export default {
        translateY(${this.y}px)`,
         background: `${this.color}`,
         opacity: `${this.opacity / 100}`,
+        filter: `blur(${this.hardness}px)`,
       };
     },
-    ...mapState(["color", "radius", "opacity"]),
+    ...mapState(["color", "radius", "opacity", "hardness"]),
   },
   methods: {
     moveCursor(e) {
@@ -63,8 +64,10 @@ export default {
   border: solid 1px #534057;
   overflow: hidden;
   .cursor_child {
-    height: 100%;
-    width: 100%;
+    height: 5rem;
+    width: 5rem;
+    color: rgb(233, 19, 19);
+    z-index: 1000;
   }
 }
 </style>

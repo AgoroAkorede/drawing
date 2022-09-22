@@ -2,16 +2,29 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    isDrawing: false,
+    isDrawing: 0,
     color: "#fff",
     radius: 10,
     lazy_radius: 10,
     opacity: 100,
     history: [],
     index: -1,
+    hardness: 0,
+    saveModal: false,
+    save: {
+      item: "",
+      name: "default",
+    },
   },
   getters: {},
-  mutations: {},
+  mutations: {
+    toggleisDrawing: (state) => {
+      state.isDrawing++;
+    },
+    toggleSaveModal: (state) => {
+      state.saveModal = !state.saveModal;
+    },
+  },
   actions: {
     setColorRed({ state }) {
       state.color = "#f06d31";
@@ -55,11 +68,19 @@ export default createStore({
     setOpacity({ state }, payload) {
       state.opacity = payload;
     },
+    setHardness({ state }, payload) {
+      state.hardness = payload;
+    },
+    setSaveName({ state }, payload) {
+      state.save.name = payload;
+    },
     deleteCanvas({ state }, payload) {
       payload.ctx.clearRect(0, 0, payload.width, payload.height);
 
-      state.index = -1;
       state.history = [];
+      state.index = -1;
+      state.isDrawing = 0;
+      console.log("working");
     },
     setHistory({ state }, payload) {
       payload.history.push(
@@ -70,16 +91,26 @@ export default createStore({
           payload.ctx.canvas.height
         )
       );
-
       state.index += 1;
     },
-    undoLast({ state, dispatch }, payload) {
+    undoLast({ commit, state, dispatch }, payload) {
       if (state.index <= 0) {
         dispatch("deleteCanvas");
       } else {
         state.index -= 1;
         state.history.pop();
-        payload.ctx.putImageData(state.history[state.index]);
+        payload.ctx.putImageData(state.history[state.index], 0, 0);
+      }
+      commit("toggleisDrawing");
+    },
+    saveItem({ state, dispatch }, payload) {
+      if (state.isDrawing > 0) {
+        state.save.item = payload.ctx.canvas.toDataURL("image/jpeg");
+        const element = document.createElement("a");
+        element.setAttribute("href", state.save.item);
+        element.setAttribute("download", state.save.name);
+        element.click();
+        dispatch("deleteCanvas");
       }
     },
   },
