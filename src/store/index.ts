@@ -4,6 +4,7 @@ export default createStore({
   state: {
     isDrawing: 0,
     color: "#fff",
+    activeColor: "",
     radius: 10,
     lazy_radius: 10,
     opacity: 100,
@@ -28,39 +29,51 @@ export default createStore({
   actions: {
     setColorRed({ state }) {
       state.color = "#f06d31";
+      state.activeColor = state.color;
     },
     setColorBlue({ state }) {
       state.color = "#6c80da";
+      state.activeColor = state.color;
     },
     setColorYellow({ state }) {
       state.color = "yellow";
+      state.activeColor = state.color;
     },
     setColorWhite({ state }) {
-      state.color = "white";
+      state.color = "#fff";
+      state.activeColor = state.color;
     },
     setColorPurple({ state }) {
       state.color = "purple";
+      state.activeColor = state.color;
     },
     setColorGrey({ state }) {
       state.color = "grey";
+      state.activeColor = state.color;
     },
     setColorGreen({ state }) {
       state.color = "#97d779";
+      state.activeColor = state.color;
     },
     setColorPink({ state }) {
       state.color = "pink";
+      state.activeColor = state.color;
     },
     setColorBlack({ state }) {
       state.color = "#0e0707";
+      state.activeColor = state.color;
     },
     setColorAqua({ state }) {
       state.color = "#70dddd";
+      state.activeColor = state.color;
     },
     setColorMangeta({ state }) {
       state.color = "#ff00ff";
+      state.activeColor = state.color;
     },
     setColorDefault({ state }) {
       state.color = "#2a192d";
+      state.activeColor = state.color;
     },
     setRadius({ state }, payload) {
       state.radius = payload;
@@ -83,6 +96,7 @@ export default createStore({
       console.log("working");
     },
     setHistory({ state }, payload) {
+      state.index += 1;
       payload.history.push(
         payload.ctx.getImageData(
           0,
@@ -91,7 +105,6 @@ export default createStore({
           payload.ctx.canvas.height
         )
       );
-      state.index += 1;
     },
     undoLast({ commit, state, dispatch }, payload) {
       if (state.index <= 0) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :style="myStyles" class="custom_cursor">
-      <div class="cursor_child"></div>
+      <div :style="myChild" class="cursor_child"></div>
     </div>
   </div>
 </template>
@@ -12,6 +12,8 @@ export default {
   name: "CursorVue",
   data() {
     return {
+      xChild: 0,
+      yChild: 0,
       x: 0,
       y: 0,
     };
@@ -19,13 +21,25 @@ export default {
   computed: {
     myStyles() {
       return {
-        height: `${this.radius / 5}rem`,
-        width: `${this.radius / 5}rem`,
+        height: `${this.radius / 4}rem`,
+        width: `${this.radius / 4}rem`,
         transform: `translateX(${this.x}px)
        translateY(${this.y}px)`,
         background: `${this.color}`,
         opacity: `${this.opacity / 100}`,
         filter: `blur(${this.hardness}px)`,
+      };
+    },
+    myChild() {
+      return {
+        height: `${this.radius / 20}rem`,
+        width: `${this.radius / 20}rem`,
+        transform: `translateX(${this.xChild}px) translateY(${this.yChild}px)`,
+        background: `#000`,
+        borderRadius: "50%",
+        position: "absolute",
+        top: "10px",
+        left: "-10px",
       };
     },
     ...mapState(["color", "radius", "opacity", "hardness"]),
@@ -34,14 +48,23 @@ export default {
     moveCursor(e) {
       this.x = e.clientX;
       this.y = e.clientY;
+      // this.xChild = e.clientX - 15;
+      // this.yChild = e.clientY - 15;
     },
   },
   mounted() {
     document.addEventListener("mousemove", this.moveCursor);
+    document.addEventListener("touchmove", this.moveCursor);
     document.addEventListener("mouseleave", (e) => {
       this.hideCursor = true;
     });
+    document.addEventListener("touchcancel", (e) => {
+      this.hideCursor = true;
+    });
     document.addEventListener("mouseenter", (e) => {
+      this.hideCursor = false;
+    });
+    document.addEventListener("touchstart", (e) => {
       this.hideCursor = false;
     });
   },
@@ -63,6 +86,9 @@ export default {
   transition: opacity 0.6s ease;
   border: solid 1px #534057;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .cursor_child {
     height: 5rem;
     width: 5rem;

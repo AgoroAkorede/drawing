@@ -17,10 +17,13 @@
             @input="setSaveName(this.name)"
           />
           <button class="save" @click.prevent="saveItem(this)">save</button>
-          <button @click="toggleSaveModal" class="close_button"></button>
+          <button @click="toggleSaveModal" class="close_button">
+            <close-icon class="icon" />
+          </button>
         </div>
       </transition>
     </div>
+
     <div class="canvas">
       <canvas
         @mousedown="startPainting"
@@ -45,6 +48,7 @@ import { mapActions, mapMutations, mapState } from "vuex";
 import DeleteIcon from "./icons/delete.vue";
 import BackIcon from "./icons/back.vue";
 import SaveIcon from "./icons/save.vue";
+import CloseIcon from "./icons/close.vue";
 
 export default {
   name: "CanvasVue",
@@ -53,7 +57,7 @@ export default {
       ctx: null,
       painting: false,
       canvasVue: null,
-      width: "1300",
+      width: "1250",
       height: "525",
       name: "Default",
     };
@@ -82,7 +86,7 @@ export default {
     },
     draw(e) {
       if (!this.painting) return;
-      this.ctx.lineWidth = this.radius;
+      this.ctx.lineWidth = this.radius * 4;
       this.ctx.lineCap = "round";
       this.ctx.lineJoin = "round";
       this.ctx.lineTo(e.offsetX, e.offsetY);
@@ -116,6 +120,7 @@ export default {
     DeleteIcon,
     BackIcon,
     SaveIcon,
+    CloseIcon,
   },
   mounted() {
     const canvasX = this.$refs.canvas;
@@ -156,6 +161,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    justify-content: center;
     .input {
       border: solid #6c80da 2px;
       height: 2rem;
@@ -164,6 +170,23 @@ export default {
         outline: solid #97d779 2px;
         border: none;
       }
+    }
+    .close_button {
+      width: 1rem;
+      height: 1rem;
+      border: transparent;
+      background-color: #f03131;
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+      border-radius: 50%;
+      margin: 2px;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
     }
     .save {
       background-color: #6c80da;
@@ -185,11 +208,6 @@ export default {
     animation: pop-down 10s linear forwards;
     transition: all 5s linear;
   }
-  // .pop-enter-from,
-  // .pop-enter-from {
-  //   transition: all 5s linear;
-  //   transform: scale(0);
-  // }
 
   @keyframes pop-up {
     from {

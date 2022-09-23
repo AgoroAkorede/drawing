@@ -1,22 +1,118 @@
 <template>
   <div class="container">
-    <div class="red" @click.prevent="setColorRed"></div>
-    <div class="blue" @click.prevent="setColorBlue"></div>
-    <div class="white" @click.prevent="setColorWhite"></div>
-    <div class="yellow" @click.prevent="setColorYellow"></div>
-    <div class="purple" @click.prevent="setColorPurple"></div>
-    <div class="grey" @click.prevent="setColorGrey"></div>
-    <div class="green" @click.prevent="setColorGreen"></div>
-    <div class="pink" @click.prevent="setColorPink"></div>
-    <div class="black" @click.prevent="setColorBlack"></div>
-    <div class="aqua" @click.prevent="setColorAqua"></div>
-    <div class="mangenta" @click.prevent="setColorMangeta"></div>
-    <div class="default" @click.prevent="setColorDefault"></div>
+    <div
+      class="red"
+      @click.prevent="setColorRed"
+      :style="
+        activeColor === '#f06d31'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="blue"
+      @click.prevent="setColorBlue"
+      :style="
+        activeColor === '#6c80da'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="white"
+      @click.prevent="setColorWhite"
+      :style="
+        activeColor === '#fff'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="yellow"
+      @click.prevent="setColorYellow"
+      :style="
+        activeColor === 'yellow'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="purple"
+      @click.prevent="setColorPurple"
+      :style="
+        activeColor === 'purple'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="grey"
+      @click.prevent="setColorGrey"
+      :style="
+        activeColor === 'grey'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="green"
+      @click.prevent="setColorGreen"
+      :style="
+        activeColor === '#97d779'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="pink"
+      @click.prevent="setColorPink"
+      :style="
+        activeColor === 'pink'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="black"
+      @click.prevent="setColorBlack"
+      :style="
+        activeColor === '#0e0707'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="aqua"
+      @click.prevent="setColorAqua"
+      :style="
+        activeColor === '#70dddd'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="mangenta"
+      @click.prevent="setColorMangeta"
+      :style="
+        activeColor === '#ff00ff'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
+    <div
+      class="default"
+      @click.prevent="setColorDefault"
+      :style="
+        activeColor === '#2a192d'
+          ? { outline: 'white solid 2px' }
+          : { outline: none }
+      "
+    ></div>
   </div>
 </template>
 
 <script lang="ts">
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "ColorsVue",
   methods: {
@@ -34,6 +130,9 @@ export default {
       "setColorMangeta",
       "setColorDefault",
     ]),
+  },
+  computed: {
+    ...mapState(["activeColor"]),
   },
 };
 </script>
@@ -53,6 +152,7 @@ export default {
   .red {
     background-color: #f06d31;
     @include icon();
+    // outline: white solid 2px;
   }
   .blue {
     background-color: #6c80da;

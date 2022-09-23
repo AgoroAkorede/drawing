@@ -26,17 +26,6 @@
       </div>
 
       <div class="slider_parent">
-        <label>lazy Radius: {{ lazy_radius }} </label>
-        <input
-          class="slider"
-          type="range"
-          min="-180"
-          max="180"
-          v-model="lazy_radius"
-        />
-      </div>
-
-      <div class="slider_parent">
         <label>softness: {{ this.hardness }} </label>
         <input
           class="slider"
