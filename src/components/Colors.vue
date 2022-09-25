@@ -144,10 +144,18 @@ export default {
   grid-template-columns: repeat(4, 1rem);
   margin: 1rem;
   cursor: pointer;
+  @media (max-width: 22rem) {
+    margin: 0.6rem;
+    grid-gap: 0.05rem;
+  }
   @mixin icon {
     height: 1rem;
     width: 1rem;
     border-radius: 50%;
+    @media (max-width: 22rem) {
+      width: 10px;
+      height: 10px;
+    }
   }
   .red {
     background-color: #f06d31;

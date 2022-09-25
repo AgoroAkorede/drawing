@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div :style="myStyles" class="custom_cursor">
-      <div :style="myChild" class="cursor_child"></div>
-    </div>
+    <div :style="myStyles" class="custom_cursor"></div>
   </div>
 </template>
 
@@ -30,18 +28,7 @@ export default {
         filter: `blur(${this.hardness}px)`,
       };
     },
-    myChild() {
-      return {
-        height: `${this.radius / 20}rem`,
-        width: `${this.radius / 20}rem`,
-        transform: `translateX(${this.xChild}px) translateY(${this.yChild}px)`,
-        background: `#000`,
-        borderRadius: "50%",
-        position: "absolute",
-        top: "10px",
-        left: "-10px",
-      };
-    },
+
     ...mapState(["color", "radius", "opacity", "hardness"]),
   },
   methods: {

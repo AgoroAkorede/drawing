@@ -8,6 +8,7 @@
         <div
           class="save_parent"
           :style="saveModal ? { display: 'flex' } : { display: 'none' }"
+          v-if="saveModal"
         >
           <input
             class="input"
@@ -27,8 +28,11 @@
     <div class="canvas">
       <canvas
         @mousedown="startPainting"
-        @mousemove="draw"
         @mouseup="finishedPainting"
+        @mousemove="draw"
+        @touchstart="startPainting"
+        @touchend="draw"
+        @touchmove="draw"
         id="canvas"
         ref="canvas"
         :width="width"
@@ -57,7 +61,7 @@ export default {
       ctx: null,
       painting: false,
       canvasVue: null,
-      width: "1250",
+      width: screen.availWidth,
       height: "525",
       name: "Default",
     };
@@ -136,6 +140,8 @@ export default {
 
   .canvas {
     border: solid #534057 1px;
+    width: 95vw;
+    height: 80vh;
     .cursor {
       display: none;
     }
@@ -201,19 +207,22 @@ export default {
     }
   }
   .pop-enter-active {
-    animation: pop-up 10s linear forwards;
-    transition: all 5s linear;
+    animation: pop-up 1s linear forwards;
+    transition: all 1s linear;
   }
   .pop-leave-active {
-    animation: pop-down 10s linear forwards;
-    transition: all 5s linear;
+    animation: pop-down 1s linear forwards;
+    transition: all 1s linear;
   }
 
   @keyframes pop-up {
-    from {
+    0% {
       transform: scale(0);
     }
-    to {
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
       transform: scale(1);
     }
   }

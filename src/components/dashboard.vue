@@ -73,46 +73,67 @@ export default {
   width: 97vw;
   padding: 1rem;
   display: flex;
-}
-.sliders {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 90%;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  .slider_parent {
+  @media (max-width: 33rem) {
+    // padding: 0;
+    width: 90vw;
+  }
+  @media (max-width: 22rem) {
+    // padding: 0;
+    width: 100vw;
+  }
+  .sliders {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    height: 100%;
-    width: 25%;
-    padding: 1rem;
-    &:hover {
-      background-color: #53405779;
+    width: 90%;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+    @media (max-width: 33rem) {
+      font-size: 0.8rem;
     }
-    .slider {
-      -webkit-appearance: none; /* Override default CSS styles */
-      appearance: none;
-      width: 90%;
-      height: 5px;
-      background: #160d18;
-      outline: none;
-      opacity: 0.7;
-      border-radius: 3px;
-      -webkit-transition: 0.2s;
-      transition: opacity 0.2s;
-      margin-top: 1.5rem;
-      &::-webkit-slider-thumb {
-        -webkit-appearance: none;
+
+    .slider_parent {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 25%;
+      padding: 1rem;
+      &:hover {
+        background-color: #53405779;
+      }
+      .slider {
+        -webkit-appearance: none; /* Override default CSS styles */
         appearance: none;
-        width: 15px;
-        height: 15px;
-        background: #534057;
-        cursor: pointer;
-        border-radius: 5px;
+        width: 90%;
+        height: 5px;
+        background: #160d18;
+        outline: none;
+        opacity: 0.7;
+        border-radius: 3px;
+        -webkit-transition: 0.2s;
+        transition: opacity 0.2s;
+        margin-top: 1.5rem;
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 15px;
+          height: 15px;
+          background: #534057;
+          cursor: pointer;
+          border-radius: 5px;
+          @media (max-width: 22rem) {
+            width: 10px;
+            height: 10px;
+          }
+          @media (max-width: 33rem) {
+            width: 10px;
+            height: 10px;
+          }
+        }
       }
     }
   }
