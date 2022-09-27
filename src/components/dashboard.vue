@@ -37,17 +37,23 @@
         />
       </div>
     </div>
+    <div @click="toggleCanvasModal" class="canvas_settings">Canvas</div>
+    <transition name="translate">
+      <canvas-settings v-if="canvasModal" />
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
 import { mapActions, mapState, mapMutations } from "vuex";
 import ColorsVue from "./Colors.vue";
+import CanvasSettings from "./CanvasSettings.vue";
 
 export default {
   name: "DashboardVue",
   components: {
     ColorsVue,
+    CanvasSettings,
   },
   data() {
     return {
@@ -59,20 +65,23 @@ export default {
   },
   methods: {
     ...mapActions(["setRadius", "setOpacity", "setHardness"]),
+    ...mapMutations(["toggleCanvasModal"]),
   },
   computed: {
-    ...mapState(["radius", "opacity", "hardness"]),
+    ...mapState(["radius", "opacity", "hardness", "canvasModal"]),
   },
 };
 </script>
 
 <style lang="scss">
 .body {
-  height: 10%;
+  // height: 5rem;
   border-bottom: solid 0.2px #3a2f3b;
   width: 97vw;
   padding: 1rem;
   display: flex;
+  // position: absolute;
+  top: 0;
   @media (max-width: 33rem) {
     // padding: 0;
     width: 90vw;
@@ -80,6 +89,19 @@ export default {
   @media (max-width: 22rem) {
     // padding: 0;
     width: 100vw;
+  }
+  .canvas_settings {
+    height: 6rem;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #53405779;
+    }
   }
   .sliders {
     display: flex;
@@ -135,6 +157,30 @@ export default {
           }
         }
       }
+    }
+  }
+  .translate-enter-active {
+    animation: translate-left 1s linear forwards;
+    transition: all 1s linear;
+  }
+  .translate-leave-active {
+    animation: translate-right 1s linear forwards;
+    transition: all 1s linear;
+  }
+  @keyframes translate-left {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+  @keyframes translate-right {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(100%);
     }
   }
 }

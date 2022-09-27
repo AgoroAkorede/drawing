@@ -1,113 +1,127 @@
 <template>
   <div class="container">
-    <div
-      class="red"
-      @click.prevent="setColorRed"
-      :style="
-        activeColor === '#f06d31'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="blue"
-      @click.prevent="setColorBlue"
-      :style="
-        activeColor === '#6c80da'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="white"
-      @click.prevent="setColorWhite"
-      :style="
-        activeColor === '#fff'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="yellow"
-      @click.prevent="setColorYellow"
-      :style="
-        activeColor === 'yellow'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="purple"
-      @click.prevent="setColorPurple"
-      :style="
-        activeColor === 'purple'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="grey"
-      @click.prevent="setColorGrey"
-      :style="
-        activeColor === 'grey'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="green"
-      @click.prevent="setColorGreen"
-      :style="
-        activeColor === '#97d779'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="pink"
-      @click.prevent="setColorPink"
-      :style="
-        activeColor === 'pink'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="black"
-      @click.prevent="setColorBlack"
-      :style="
-        activeColor === '#0e0707'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="aqua"
-      @click.prevent="setColorAqua"
-      :style="
-        activeColor === '#70dddd'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="mangenta"
-      @click.prevent="setColorMangeta"
-      :style="
-        activeColor === '#ff00ff'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
-    <div
-      class="default"
-      @click.prevent="setColorDefault"
-      :style="
-        activeColor === '#2a192d'
-          ? { outline: 'white solid 2px' }
-          : { outline: none }
-      "
-    ></div>
+    <transition-group name="fade" mode="out-in">
+      <div
+        class="red"
+        @click.prevent="setColorRed"
+        :style="
+          activeColor === '#f06d31'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        v-if="setColorRed"
+        key="#f06d31"
+      ></div>
+      <div
+        class="blue"
+        @click.prevent="setColorBlue"
+        :style="
+          activeColor === '#6c80da'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="#6c80da"
+      ></div>
+      <div
+        class="white"
+        @click.prevent="setColorWhite"
+        :style="
+          activeColor === '#fff'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="#fff"
+      ></div>
+      <div
+        class="yellow"
+        @click.prevent="setColorYellow"
+        :style="
+          activeColor === 'yellow'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="yellow"
+      ></div>
+      <div
+        class="purple"
+        @click.prevent="setColorPurple"
+        :style="
+          activeColor === 'purple'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="purple"
+      ></div>
+      <div
+        class="grey"
+        @click.prevent="setColorGrey"
+        :style="
+          activeColor === 'grey'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+      ></div>
+      <div
+        class="green"
+        @click.prevent="setColorGreen"
+        :style="
+          activeColor === '#97d779'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="#97d779"
+      ></div>
+      <div
+        class="pink"
+        @click.prevent="setColorPink"
+        :style="
+          activeColor === 'pink'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="pink"
+      ></div>
+      <div
+        class="black"
+        @click.prevent="setColorBlack"
+        :style="
+          activeColor === '#0e0707'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="#0e0707"
+      ></div>
+      <div
+        class="aqua"
+        @click.prevent="setColorAqua"
+        :style="
+          activeColor === '#70dddd'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="#70dddd"
+      ></div>
+      <div
+        class="mangenta"
+        @click.prevent="setColorMangeta"
+        :style="
+          activeColor === '#ff00ff'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="#ff00ff"
+      ></div>
+      <div
+        class="default"
+        @click.prevent="setColorDefault"
+        :style="
+          activeColor === '#2a192d'
+            ? { outline: 'white solid 2px' }
+            : { outline: none }
+        "
+        key="#2a192d"
+      ></div>
+    </transition-group>
   </div>
 </template>
 
@@ -206,6 +220,31 @@ export default {
   .aqua {
     background-color: #70dddd;
     @include icon();
+  }
+  .fade-enter-active {
+    animation: pop-up 1s linear forwards;
+    transition: all 1s linear;
+  }
+  .fade-leave-active {
+    animation: pop-down 1s linear forwards;
+    transition: all 1s linear;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
 }
 </style>

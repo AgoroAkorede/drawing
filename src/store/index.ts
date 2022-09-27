@@ -12,9 +12,16 @@ export default createStore({
     index: -1,
     hardness: 0,
     saveModal: false,
+    canvasModal: false,
+    isPixel: false,
+    angle: 0,
     save: {
       item: "",
       name: "default",
+    },
+    canvas: {
+      width: "1300",
+      height: "525",
     },
   },
   getters: {},
@@ -24,6 +31,9 @@ export default createStore({
     },
     toggleSaveModal: (state) => {
       state.saveModal = !state.saveModal;
+    },
+    toggleCanvasModal: (state) => {
+      state.canvasModal = !state.canvasModal;
     },
   },
   actions: {
@@ -94,6 +104,14 @@ export default createStore({
       state.index = -1;
       state.isDrawing = 0;
       console.log("working");
+    },
+    setCanvas({ state }, payload) {
+      state.canvas.height = payload.height;
+      state.canvas.width = payload.width;
+    },
+    rotateCanvas({ state }, payload) {
+      state.canvas.width = state.canvas.height;
+      // state.canvas.height = state.canvas.width;
     },
     setHistory({ state }, payload) {
       state.index += 1;

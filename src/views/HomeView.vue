@@ -24,9 +24,11 @@ export default class HomeView extends Vue {}
   display: flex;
   justify-content: center;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   align-items: center;
   max-width: 100vw;
-  max-height: 100vh;
+  // min-height: 100%;
+  height: 100%;
 }
 </style>

@@ -35,8 +35,8 @@
         @touchmove="draw"
         id="canvas"
         ref="canvas"
-        :width="width"
-        :height="height"
+        :width="canvas.width / 2"
+        :height="canvas.height / 2"
       >
       </canvas>
       <div class="cursor" :class="{ backgroundColor: color }">
@@ -61,8 +61,6 @@ export default {
       ctx: null,
       painting: false,
       canvasVue: null,
-      width: screen.availWidth,
-      height: "525",
       name: "Default",
     };
   },
@@ -82,6 +80,7 @@ export default {
       "index",
       "saveModal",
       "save",
+      "canvas",
     ]),
   },
   methods: {
@@ -102,7 +101,6 @@ export default {
       this.ctx.filter = `blur(${this.hardness}px)`;
       this.ctx.closePath();
       this.ctx.shadowBlur = 10;
-      // this.isDrawing = true;
     },
     finishedPainting() {
       this.painting = false;
@@ -137,11 +135,18 @@ export default {
 .container_canvas {
   display: flex;
   cursor: none;
-
+  margin: 10vh;
+  // background-color: #fff;
+  // overflow: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & {
+    scrollbar-width: 0;
+    -ms-overflow-style: none;
+  }
   .canvas {
     border: solid #534057 1px;
-    width: 95vw;
-    height: 80vh;
     .cursor {
       display: none;
     }
