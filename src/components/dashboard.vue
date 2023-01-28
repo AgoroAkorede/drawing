@@ -3,44 +3,59 @@
     <colors-vue />
     <div class="sliders">
       <div class="slider_parent">
-        <label>opacity: {{ this.opacity }} </label>
+        <label>opacity: {{ opacity }} </label>
         <input
           class="slider"
           type="range"
           min="0"
           max="100"
-          v-model="this.opacity"
-          @input="setOpacity(this.opacity)"
+          v-model="opacity"
+          @input="setOpacity(opacity)"
         />
       </div>
       <div class="slider_parent">
-        <label>radius: {{ this.radius }} </label>
+        <label>radius: {{ radius }} </label>
         <input
           class="slider"
           type="range"
           min="1"
           max="36"
-          v-model="this.radius"
-          @input="setRadius(this.radius)"
+          v-model="radius"
+          @input="setRadius(radius)"
         />
       </div>
 
       <div class="slider_parent">
-        <label>softness: {{ this.hardness }} </label>
+        <label>softness: {{ hardness }} </label>
         <input
           class="slider"
           type="range"
           min="0"
           max="50"
-          v-model="this.hardness"
-          @input="setHardness(this.hardness)"
+          v-model="hardness"
+          @input="setHardness(hardness)"
         />
       </div>
     </div>
-    <div @click="toggleCanvasModal" class="canvas_settings">Canvas</div>
+    <div @click="toggleCanvasModal" class="canvas_settings">
+      <canvas-icon />
+      Canvas
+    </div>
     <transition name="translate">
       <canvas-settings v-if="canvasModal" />
     </transition>
+
+    <div @click="toggleShapesModal" class="canvas_settings">
+      <shapes-icon />
+      Shapes
+    </div>
+    <transition name="translate">
+      <shapes-settings v-if="shapesModal" />
+    </transition>
+  </div>
+  <div class="page_no">
+    <button class="page_btn" @click="PreviousPage">⇽</button> {{ pageNo }}
+    <button class="page_btn" @click="NextPage">⇾</button>
   </div>
 </template>
 
@@ -48,27 +63,46 @@
 import { mapActions, mapState, mapMutations } from "vuex";
 import ColorsVue from "./Colors.vue";
 import CanvasSettings from "./CanvasSettings.vue";
+import ShapesSettings from "./ShapesSettings.vue";
+import CanvasIcon from "./icons/CanvasIcon.vue";
+import ShapesIcon from "./icons/ShapesIcon.vue";
 
 export default {
   name: "DashboardVue",
   components: {
     ColorsVue,
     CanvasSettings,
+    ShapesSettings,
+    CanvasIcon,
+    ShapesIcon,
   },
   data() {
     return {
       opacity: 100,
       lazy_radius: 0,
-      radius: 10,
+      radius: 5,
       hardness: 0,
     };
   },
   methods: {
-    ...mapActions(["setRadius", "setOpacity", "setHardness"]),
-    ...mapMutations(["toggleCanvasModal"]),
+    ...mapActions([
+      "setRadius",
+      "setOpacity",
+      "setHardness",
+      "PreviousPage",
+      "NextPage",
+    ]),
+    ...mapMutations(["toggleShapesModal", "toggleCanvasModal"]),
   },
   computed: {
-    ...mapState(["radius", "opacity", "hardness", "canvasModal"]),
+    ...mapState([
+      "radius",
+      "opacity",
+      "hardness",
+      "shapesModal",
+      "canvasModal",
+      "pageNo",
+    ]),
   },
 };
 </script>
@@ -182,6 +216,18 @@ export default {
     to {
       transform: translateX(100%);
     }
+  }
+}
+
+.page_no {
+  font-size: 1.25rem;
+  color: white;
+  .page_btn {
+    background-color: transparent;
+    border: none;
+    padding: none;
+    font-size: 1.25rem;
+    cursor: pointer;
   }
 }
 </style>

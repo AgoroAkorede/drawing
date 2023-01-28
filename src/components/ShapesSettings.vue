@@ -1,35 +1,51 @@
 <template>
   <div class="settings_container">
-    <button @click="toggleCanvasModal" class="close_button">
+    <button @click="toggleShapesModal" class="close_button">
       <close-icon class="icon" />
     </button>
-    <h1>Canvas</h1>
-    <h2>Transparent Canvas</h2>
-    <label class="switch">
-      <input type="checkbox" />
-      <span class="slider" @click="toggleisTransparent"></span>
-    </label>
-    <h2>Resize Canvas</h2>
-    <ul>
+    <h1>2D Shapes</h1>
+    <h2>2D Shapes</h2>
+    <ul class="shapes">
       <li>
-        width
-        <input type="text" @input="setCanvas(canvas)" v-model="canvas.width" />
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+        >
+          <path d="M0 0h32v32H0z" />
+        </svg>
       </li>
-      <li>height <input type="text" v-model="canvas.height" /></li>
+      <li>
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 14H5l5-9 5 9z" />
+        </svg>
+      </li>
+      <li>
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="1792"
+          height="1792"
+        >
+          <path
+            d="M1664 896q0 209-103 385.5T1281.5 1561 896 1664t-385.5-103T231 1281.5 128 896t103-385.5T510.5 231 896 128t385.5 103T1561 510.5 1664 896z"
+          />
+        </svg>
+      </li>
+      <li>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="64"
+          height="64"
+          class="icon"
+        >
+          <path
+            d="M47.907 60 63.8 32 47.907 4H16.093L.201 32l15.893 28h31.813zM17.257 6h29.485L61.5 32 46.743 58H17.257L2.5 32 17.257 6z"
+          />
+        </svg>
+      </li>
     </ul>
-    <article>Adjusting the canvas dimension resets the canvas.</article>
-    <select name="Pixels">
-      <option value="Pixels">Pixels</option>
-      <!-- <option value="Percent">Percent</option> -->
-    </select>
-
-    <h2>Rotate and Flip</h2>
-    <div class="buttons_Rotate">
-      <button>⇽</button>
-      <button>⇾</button>
-      <button>◮</button>
-      <button>◭</button>
-    </div>
   </div>
 </template>
 
@@ -37,7 +53,7 @@
 import { mapActions, mapMutations, mapState } from "vuex";
 import CloseIcon from "./icons/close.vue";
 export default {
-  name: "CanvasSettings",
+  name: "ShapesSettings",
   data() {
     return {
       ctx: null,
@@ -46,9 +62,13 @@ export default {
   computed: {
     ...mapState(["canvas"]),
   },
+  // mounted() {
+  //   const canvasX = this.$refs.canvas;
+  //   this.ctx = canvasX.getContext("2d");
+  // },
   methods: {
-    ...mapActions(["setCanvas"]),
-    ...mapMutations(["toggleCanvasModal", "toggleisTransparent"]),
+    ...mapActions(["setCanvas", "rotateCanvas"]),
+    ...mapMutations(["toggleShapesModal"]),
   },
   components: {
     CloseIcon,
@@ -75,6 +95,17 @@ export default {
     font-size: 1.3rem;
     color: blueviolet;
     font-weight: 100;
+  }
+  .shapes {
+    display: grid;
+    li {
+      .icon {
+        fill: rgb(170, 166, 166);
+        height: 1rem;
+        width: 1em;
+        // border: solid 2px rgb(22, 22, 22);
+      }
+    }
   }
   .close_button {
     width: 1.25rem;
@@ -150,50 +181,6 @@ export default {
       }
       &:last-child {
         transform: rotate(270deg);
-      }
-    }
-  }
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 2.5rem;
-    height: 1.1rem;
-    .slider {
-      position: absolute;
-      top: 0;
-      background-color: transparent;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
-      height: 100%;
-      width: 100%;
-      border-radius: 20px;
-      border: solid black 2px;
-      &::before {
-        position: absolute;
-        content: "";
-        height: 0.75rem;
-        width: 0.75rem;
-        left: 4px;
-        bottom: 3px;
-        background-color: rgb(0, 0, 0);
-        transition: 0.4s;
-        border-radius: 50%;
-      }
-    }
-    input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      &:checked + .slider {
-        background-color: #2196f3;
-        border: solid #2196f3 2px;
-      }
-      &:focus + .slider {
-        box-shadow: 0 0 1px #2196f3;
-      }
-      &:checked + .slider::before {
-        transform: translateX(1.25rem);
-        background-color: #fff;
       }
     }
   }

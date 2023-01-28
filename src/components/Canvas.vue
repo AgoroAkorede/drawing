@@ -25,7 +25,14 @@
       </transition>
     </div>
 
-    <div class="canvas">
+    <div
+      class="canvas"
+      :style="
+        isTransparent === false
+          ? { backgroundColor: 'white' }
+          : { backgroundColor: 'transparent' }
+      "
+    >
       <canvas
         @mousedown="startPainting"
         @mouseup="finishedPainting"
@@ -35,8 +42,8 @@
         @touchmove="draw"
         id="canvas"
         ref="canvas"
-        :width="canvas.width / 2"
-        :height="canvas.height / 2"
+        :width="canvas.width"
+        :height="canvas.height"
       >
       </canvas>
       <div class="cursor" :class="{ backgroundColor: color }">
@@ -62,14 +69,11 @@ export default {
       painting: false,
       canvasVue: null,
       name: "Default",
+      width: null,
+      height: null,
     };
   },
   computed: {
-    myStyles() {
-      return {
-        display: "flex",
-      };
-    },
     ...mapState([
       "color",
       "radius",
@@ -81,6 +85,8 @@ export default {
       "saveModal",
       "save",
       "canvas",
+      "isTransparent",
+      "rotate",
     ]),
   },
   methods: {
@@ -115,6 +121,7 @@ export default {
       "setHistory",
       "saveItem",
       "setSaveName",
+      "rotateCanvas",
     ]),
   },
   components: {
@@ -127,6 +134,7 @@ export default {
   mounted() {
     const canvasX = this.$refs.canvas;
     this.ctx = canvasX.getContext("2d");
+    console.log(this.isDrawing);
   },
 };
 </script>
@@ -135,11 +143,19 @@ export default {
 .container_canvas {
   display: flex;
   cursor: none;
+  /* overflow: hidden; */
   margin: 10vh;
-  // background-color: #fff;
-  // overflow: hidden;
   &::-webkit-scrollbar {
-    display: none;
+    width: 1em;
+    display: flex;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(245, 235, 235);
+    outline: 1px solid rgb(232, 237, 241);
   }
   & {
     scrollbar-width: 0;
@@ -147,6 +163,7 @@ export default {
   }
   .canvas {
     border: solid #534057 1px;
+    background-color: #fff;
     .cursor {
       display: none;
     }

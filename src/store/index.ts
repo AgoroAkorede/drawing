@@ -3,9 +3,9 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     isDrawing: 0,
-    color: "#fff",
-    activeColor: "",
-    radius: 10,
+    color: "#2a192d",
+    activeColor: "#2a192d",
+    radius: 5,
     lazy_radius: 10,
     opacity: 100,
     history: [],
@@ -13,15 +13,17 @@ export default createStore({
     hardness: 0,
     saveModal: false,
     canvasModal: false,
+    shapesModal: false,
     isPixel: false,
-    angle: 0,
+    isTransparent: false,
+    pageNo: 1,
     save: {
       item: "",
       name: "default",
     },
     canvas: {
-      width: "1300",
-      height: "525",
+      width: "862",
+      height: "352",
     },
   },
   getters: {},
@@ -29,11 +31,19 @@ export default createStore({
     toggleisDrawing: (state) => {
       state.isDrawing++;
     },
+    toggleisTransparent: (state) => {
+      state.isTransparent = !state.isTransparent;
+      state.color = "#fff";
+      state.activeColor = "#fff";
+    },
     toggleSaveModal: (state) => {
       state.saveModal = !state.saveModal;
     },
     toggleCanvasModal: (state) => {
       state.canvasModal = !state.canvasModal;
+    },
+    toggleShapesModal: (state) => {
+      state.shapesModal = !state.shapesModal;
     },
   },
   actions: {
@@ -98,35 +108,24 @@ export default createStore({
       state.save.name = payload;
     },
     deleteCanvas({ state }, payload) {
-      payload.ctx.clearRect(0, 0, payload.width, payload.height);
-
+      payload.ctx.clearRect(0, 0, state.canvas.width, state.canvas.height);
       state.history = [];
       state.index = -1;
       state.isDrawing = 0;
-      console.log("working");
     },
     setCanvas({ state }, payload) {
       state.canvas.height = payload.height;
       state.canvas.width = payload.width;
     },
-    rotateCanvas({ state }, payload) {
-      state.canvas.width = state.canvas.height;
-      // state.canvas.height = state.canvas.width;
-    },
     setHistory({ state }, payload) {
       state.index += 1;
       payload.history.push(
-        payload.ctx.getImageData(
-          0,
-          0,
-          payload.ctx.canvas.width,
-          payload.ctx.canvas.height
-        )
+        payload.ctx.getImageData(0, 0, state.canvas.width, state.canvas.height)
       );
     },
     undoLast({ commit, state, dispatch }, payload) {
       if (state.index <= 0) {
-        dispatch("deleteCanvas");
+        dispatch("deleteCanvas", payload);
       } else {
         state.index -= 1;
         state.history.pop();
@@ -134,6 +133,7 @@ export default createStore({
       }
       commit("toggleisDrawing");
     },
+
     saveItem({ state, dispatch }, payload) {
       if (state.isDrawing > 0) {
         state.save.item = payload.ctx.canvas.toDataURL("image/jpeg");
@@ -142,6 +142,25 @@ export default createStore({
         element.setAttribute("download", state.save.name);
         element.click();
         dispatch("deleteCanvas");
+      }
+    },
+
+    createNewPage({ state, dispatch }, payload) {
+      if (state.pageNo > 1) {
+        console.log("Multiple pages detected");
+        state.history = [];
+      }
+    },
+
+    NextPage({ state, dispatch }, payload) {
+      if (state.pageNo < 10) {
+        state.pageNo++;
+        dispatch("createNewPage");
+      }
+    },
+    PreviousPage({ state, dispatch }, payload) {
+      if (state.pageNo > 1) {
+        state.pageNo--;
       }
     },
   },
