@@ -1,12 +1,13 @@
 <template>
   <div class="home">
     <dashboard-vue />
-    <div class="canvases">
+    <!-- <div class="canvases">
       <div v-for="canvas in PageNo" :key="canvas">
         {{ canvas }}
         <canvas-vue />
       </div>
-    </div>
+    </div> -->
+    <canvas-vue />
   </div>
 </template>
 
@@ -23,7 +24,7 @@ export default {
   },
   data() {
     return {
-      PageNo: 10,
+      PageNo: 1,
     };
   },
   computed: {

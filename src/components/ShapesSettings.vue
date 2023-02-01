@@ -5,7 +5,7 @@
     </button>
     <h1>2D Shapes</h1>
     <h2>2D Shapes</h2>
-    <ul class="shapes">
+    <!-- <ul class="shapes">
       <li>
         <svg
           class="icon"
@@ -45,7 +45,8 @@
           />
         </svg>
       </li>
-    </ul>
+    </ul> -->
+    <h1>Coming Soon!</h1>
   </div>
 </template>
 
