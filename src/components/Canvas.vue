@@ -22,6 +22,7 @@
             <close-icon class="icon" />
           </button>
         </div>
+
       </transition>
     </div>
 
