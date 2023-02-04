@@ -7,7 +7,7 @@
         :style="
           activeColor === '#f06d31'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         v-if="setColorRed"
         key="#f06d31"
@@ -18,7 +18,7 @@
         :style="
           activeColor === '#6c80da'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="#6c80da"
       ></div>
@@ -28,7 +28,7 @@
         :style="
           activeColor === '#fff'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="#fff"
       ></div>
@@ -38,7 +38,7 @@
         :style="
           activeColor === 'yellow'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="yellow"
       ></div>
@@ -48,7 +48,7 @@
         :style="
           activeColor === 'purple'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="purple"
       ></div>
@@ -58,7 +58,7 @@
         :style="
           activeColor === 'grey'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
       ></div>
       <div
@@ -67,7 +67,7 @@
         :style="
           activeColor === '#97d779'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="#97d779"
       ></div>
@@ -77,7 +77,7 @@
         :style="
           activeColor === 'pink'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="pink"
       ></div>
@@ -87,7 +87,7 @@
         :style="
           activeColor === '#0e0707'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="#0e0707"
       ></div>
@@ -97,7 +97,7 @@
         :style="
           activeColor === '#70dddd'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="#70dddd"
       ></div>
@@ -107,7 +107,7 @@
         :style="
           activeColor === '#ff00ff'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="#ff00ff"
       ></div>
@@ -117,7 +117,7 @@
         :style="
           activeColor === '#2a192d'
             ? { outline: 'white solid 2px' }
-            : { outline: none }
+            : { outline: 'none' }
         "
         key="#2a192d"
       ></div>

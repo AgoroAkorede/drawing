@@ -17,6 +17,7 @@ export default createStore({
     isPixel: false,
     isTransparent: false,
     pageNo: 1,
+    zoom: 100,
     save: {
       item: "",
       name: "default",
@@ -162,6 +163,19 @@ export default createStore({
       if (state.pageNo > 1) {
         state.pageNo--;
       }
+    },
+    rotateCanvas({ state, dispatch }, payload) {
+      // const { content, angle } = payload;
+      payload.ctx.clearRect(0, 0, state.canvas.width, state.canvas.height);
+      payload.ctx.save();
+      payload.ctx.translate(state.canvas.width, state.canvas.height);
+      payload.ctx.rotate((Math.PI / 180) * 30);
+
+      payload.ctx.drawImage(0, 0);
+
+      payload.ctx.restore();
+      // payload.ctx.restore();
+      console.log(payload.ctx.rotate);
     },
   },
 });

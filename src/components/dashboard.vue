@@ -36,6 +36,17 @@
           @input="setHardness(hardness)"
         />
       </div>
+      <div class="slider_parent">
+        <label>zoom: {{ zoom }} </label>
+        <input
+          class="slider"
+          type="range"
+          min="0"
+          max="100"
+          v-model="zoom"
+          @input="setHardness(hardness)"
+        />
+      </div>
     </div>
     <div @click="toggleCanvasModal" class="canvas_settings">
       <canvas-icon />
@@ -82,6 +93,7 @@ export default {
       lazy_radius: 0,
       radius: 5,
       hardness: 0,
+      zoom: 100,
     };
   },
   methods: {
@@ -102,6 +114,7 @@ export default {
       "shapesModal",
       "canvasModal",
       "pageNo",
+      "zoom",
     ]),
   },
 };
@@ -114,7 +127,7 @@ export default {
   width: 97vw;
   padding: 1rem;
   display: flex;
-  // position: absolute;
+  /* position: fixed; */
   top: 0;
   @media (max-width: 33rem) {
     // padding: 0;

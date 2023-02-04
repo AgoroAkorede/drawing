@@ -2,7 +2,8 @@
   <div class="container_canvas">
     <div class="hot_bar">
       <delete-icon @click="deleteCanvas(this)" />
-      <back-icon @click="undoLast(this)"></back-icon>
+      <!-- <back-icon @click="undoLast(this)"></back-icon> -->
+      <back-icon @click="rotateCanvas(this)"></back-icon>
       <save-icon @click.prevent="toggleSaveModal" />
       <transition name="pop" mode="out-in">
         <div
@@ -22,7 +23,6 @@
             <close-icon class="icon" />
           </button>
         </div>
-
       </transition>
     </div>
 
@@ -145,7 +145,9 @@ export default {
   display: flex;
   cursor: none;
   /* overflow: hidden; */
+  position: relative;
   margin: 10vh;
+  /* transform: rotate(90deg); */
   &::-webkit-scrollbar {
     width: 1em;
     display: flex;
@@ -179,6 +181,11 @@ export default {
     flex-direction: column;
     padding: 1rem;
     cursor: default;
+    position: fixed;
+    left: -0.5%;
+    top: 40%;
+    background-color: #534057;
+    border-radius: 5px;
   }
   .save_parent {
     position: absolute;

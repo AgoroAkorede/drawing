@@ -19,8 +19,8 @@
     </ul>
     <article>Adjusting the canvas dimension resets the canvas.</article>
     <select name="Pixels">
-      <option value="Pixels">Pixels</option>
-      <!-- <option value="Percent">Percent</option> -->
+      <option class="option" value="Pixels">Pixels</option>
+      <option class="option" value="Pixels">Percent</option>
     </select>
 
     <h2>Rotate and Flip</h2>
@@ -128,8 +128,10 @@ export default {
     height: 2.5rem;
     border: #9e9e9e solid 1px;
     margin-bottom: 20vh;
-    option {
+    appearance: none;
+    .option {
       height: 2.5rem;
+      border-radius: none;
     }
     &:focus,
     &:hover {
